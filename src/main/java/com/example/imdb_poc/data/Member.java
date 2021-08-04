@@ -7,6 +7,9 @@ public class Member {
     private String category;
     private String job;
 
+    public Member() {
+    }
+
     public Member(String member_name, String member_id, String role, String category, String job) {
         this.member_name = member_name;
         this.member_id = member_id;

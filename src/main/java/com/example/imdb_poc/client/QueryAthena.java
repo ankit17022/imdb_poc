@@ -1,7 +1,7 @@
-package com.example.imdb_poc.athenaClient;
+package com.example.imdb_poc.client;
 
 
-import com.example.imdb_poc.constants.AthenaConstants;
+import com.example.imdb_poc.constant.AthenaConstants;
 import software.amazon.awssdk.services.athena.AthenaClient;
 import software.amazon.awssdk.services.athena.model.*;
 
@@ -33,7 +33,7 @@ public class QueryAthena {
 
         } catch (AthenaException e) {
             e.printStackTrace();
-            System.exit(1);
+//            System.exit(1);
         }
         return "";
     }
@@ -75,7 +75,7 @@ public class QueryAthena {
             return processRow(results, columnInfoList);
         } catch (AthenaException e) {
             e.printStackTrace();
-            System.exit(1);
+//            System.exit(1);
         }
         return null;
     }

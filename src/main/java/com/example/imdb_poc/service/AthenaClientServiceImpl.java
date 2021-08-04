@@ -1,15 +1,12 @@
-package com.example.imdb_poc.services;
+package com.example.imdb_poc.service;
 
 
-import com.example.imdb_poc.athenaClient.AthenaClientFactory;
-import com.example.imdb_poc.athenaClient.QueryAthena;
+import com.example.imdb_poc.client.AthenaClientFactory;
+import com.example.imdb_poc.client.QueryAthena;
 import com.example.imdb_poc.data.ImdbPayload;
 import com.example.imdb_poc.data.Member;
-import com.example.imdb_poc.model.ImdbMapping;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,10 +15,6 @@ import java.util.Map;
 public class AthenaClientServiceImpl implements AthenaClientService{
 
     private AthenaClientFactory athenaClientFactory = new AthenaClientFactory();
-
-    @Autowired
-    private ImdbMappingService imdbMappingService;
-
 
     @Override
     public Map<String, ImdbPayload> getAthenaData(String athenaSqlQuery) {
@@ -47,19 +40,16 @@ public class AthenaClientServiceImpl implements AthenaClientService{
                         imdbFetchedData.addCastMember(member);
                     else
                         imdbFetchedData.addCrewMember(member);
-
                     athenaFetched.put(imdb_title_id, imdbFetchedData);
                 } else {
                     ImdbPayload existing_data = athenaFetched.get(imdb_title_id);
                     if(member_role == null || member_role.isEmpty())
-                        existing_data.addCastMember(member);
-                    else
                         existing_data.addCrewMember(member);
-
+                    else
+                        existing_data.addCastMember(member);
                     athenaFetched.put(imdb_title_id, existing_data);
                 }
             }
-            result.remove(0);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

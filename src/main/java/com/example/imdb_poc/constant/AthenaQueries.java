@@ -1,6 +1,4 @@
-package com.example.imdb_poc.constants;
-
-import java.util.ArrayList;
+package com.example.imdb_poc.constant;
 
 public class AthenaQueries {
     public static String athenaFetchImdbPayload = "WITH castMembers AS \n" +

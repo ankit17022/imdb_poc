@@ -1,4 +1,4 @@
-package com.example.imdb_poc.services;
+package com.example.imdb_poc.service;
 
 import com.example.imdb_poc.model.ImdbMapping;
 import com.example.imdb_poc.repo.ImdbMappingRepo;
@@ -19,6 +19,11 @@ public class ImdbMappingServiceImpl implements ImdbMappingService {
     private ImdbMappingRepo imdbMappingRepo;
 
     @Override
+    public long totalCount() {
+        return imdbMappingRepo.count();
+    }
+
+    @Override
     public List<ImdbMapping> fetchMapping() {
         List<ImdbMapping> result = imdbMappingRepo.findAll();
         System.out.println(result);
@@ -28,9 +33,7 @@ public class ImdbMappingServiceImpl implements ImdbMappingService {
     @Override
     public List<ImdbMapping> fetchMapping(int pageNo, int size) {
         Pageable paging = PageRequest.of(pageNo, size);
-
         Page<ImdbMapping> result = imdbMappingRepo.findAll(paging);
-        System.out.println(result.getContent());
 
         if(result.hasContent())
             return result.getContent();
@@ -42,10 +45,5 @@ public class ImdbMappingServiceImpl implements ImdbMappingService {
     @Override
     public void save(ImdbMapping imdbMapping) {
         imdbMappingRepo.save(imdbMapping);
-    }
-
-    @Override
-    public long totalCount() {
-        return imdbMappingRepo.count();
     }
 }

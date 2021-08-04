@@ -1,4 +1,4 @@
-package com.example.imdb_poc.constants;
+package com.example.imdb_poc.constant;
 
 public class AthenaConstants {
     public static final int CLIENT_EXECUTION_TIMEOUT = 100000;

@@ -3,13 +3,16 @@ package com.example.imdb_poc.data;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class ImdbPayload{
     private double ratings;
     private long number_of_votes;
-    private List<Member> cast_members = new ArrayList<>();
-    private List<Member> crew_members = new ArrayList<>();
+    private List<Member> cast_members;
+    private List<Member> crew_members;
 
     public ImdbPayload() {
+        cast_members = new ArrayList<>();
+        crew_members = new ArrayList<>();
     }
 
     public ImdbPayload(double ratings, long number_of_votes, List<Member> cast_members, List<Member> crew_members) {

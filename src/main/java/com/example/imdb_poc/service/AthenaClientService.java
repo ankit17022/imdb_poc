@@ -1,4 +1,4 @@
-package com.example.imdb_poc.services;
+package com.example.imdb_poc.service;
 
 import com.example.imdb_poc.data.ImdbPayload;
 
