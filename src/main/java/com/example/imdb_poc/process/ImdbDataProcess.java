@@ -41,25 +41,26 @@ public class ImdbDataProcess implements Runnable, ApplicationContextAware {
             if(imdbMappingData == null || imdbMappingData.isEmpty()) return;
 
             // Mapping imdb_id and IMDBMapping Object
-            Map<String, ImdbMapping> imdbIdToImdbMapping = new HashMap<>();
+            Map<String, ImdbMapping> databaseImdbIdToImdbMapping = new HashMap<>();
 
-            imdbMappingData.forEach(imdbData -> imdbIdToImdbMapping.put(imdbData.getImdb_title_id(), imdbData));
+            imdbMappingData.forEach(imdbData -> databaseImdbIdToImdbMapping.put(imdbData.getImdb_title_id(), imdbData));
 
             // Generating Athena query with query as Where imdb_id in ('', '')
-            String athenaQuery = String.format(AthenaQueries.athenaFetchImdbPayload, "'" + String.join("','", new ArrayList<>(imdbIdToImdbMapping.keySet())) + "'");
+            String athenaQuery = String.format(AthenaQueries.athenaFetchImdbPayload, "'" + String.join("','", new ArrayList<>(databaseImdbIdToImdbMapping.keySet())) + "'");
 
             Map<String, ImdbPayload> athenaResult = athenaClientService.getAthenaData(athenaQuery);
 
             // Iterating to every key in map(athena result)
             for(String imdb_id: athenaResult.keySet()){
-                ImdbMapping imdbMapping = imdbIdToImdbMapping.get(imdb_id);
+                ImdbMapping databaseImdbMapping = databaseImdbIdToImdbMapping.get(imdb_id);
 
+                ImdbPayload databaseImdbPayload = databaseImdbMapping.getPayload();
                 ImdbPayload athenaImdbPayload = athenaResult.get(imdb_id);
 
-                if (!athenaImdbPayload.equals(imdbMapping.getPayload())) {
-                    imdbMapping.setProcessed(1);
-                    imdbMapping.setPayload(athenaImdbPayload);
-                    imdbMappingService.save(imdbMapping);
+                if (!athenaImdbPayload.equals(databaseImdbPayload)) {
+                    databaseImdbMapping.setProcessed(1);
+                    databaseImdbMapping.setPayload(athenaImdbPayload);
+                    imdbMappingService.save(databaseImdbMapping);
                 }
             }
         }catch(NullPointerException p){

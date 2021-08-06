@@ -37,9 +37,9 @@ public class AthenaClientServiceImpl implements AthenaClientService{
                     imdbFetchedData.setRatings(rating);
                     imdbFetchedData.setNumber_of_votes(number_of_votes);
                     if(member_role == null || member_role.isEmpty())
-                        imdbFetchedData.addCastMember(member);
-                    else
                         imdbFetchedData.addCrewMember(member);
+                    else
+                        imdbFetchedData.addCastMember(member);
                     athenaFetched.put(imdb_title_id, imdbFetchedData);
                 } else {
                     ImdbPayload existing_data = athenaFetched.get(imdb_title_id);

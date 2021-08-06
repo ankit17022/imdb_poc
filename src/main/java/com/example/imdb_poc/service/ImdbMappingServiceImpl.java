@@ -26,7 +26,6 @@ public class ImdbMappingServiceImpl implements ImdbMappingService {
     @Override
     public List<ImdbMapping> fetchMapping() {
         List<ImdbMapping> result = imdbMappingRepo.findAll();
-        System.out.println(result);
         return result;
     }
 

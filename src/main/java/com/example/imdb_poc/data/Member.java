@@ -1,5 +1,7 @@
 package com.example.imdb_poc.data;
 
+import java.util.Objects;
+
 public class Member {
     private String member_name;
     private String member_id;
@@ -67,5 +69,18 @@ public class Member {
                 ", category='" + category + '\'' +
                 ", job='" + job + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Member member = (Member) o;
+        return Objects.equals(member_name, member.member_name) && Objects.equals(member_id, member.member_id) && Objects.equals(role, member.role) && Objects.equals(category, member.category) && Objects.equals(job, member.job);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(member_name, member_id, role, category, job);
     }
 }

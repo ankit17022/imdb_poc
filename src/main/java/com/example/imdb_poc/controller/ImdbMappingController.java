@@ -1,9 +1,7 @@
 package com.example.imdb_poc.controller;
 
-import com.example.imdb_poc.data.ImdbPayload;
 import com.example.imdb_poc.model.ImdbMapping;
 import com.example.imdb_poc.process.ImdbDataProcess;
-import com.example.imdb_poc.service.AthenaClientService;
 import com.example.imdb_poc.service.ImdbMappingService;
 import com.example.imdb_poc.constant.AppConstants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
